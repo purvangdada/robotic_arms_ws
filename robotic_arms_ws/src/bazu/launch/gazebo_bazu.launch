@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="robot_description" textfile="$(find bazu)/urdf/bazu.urdf"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"  args="-param robot_description -urdf -model bazu"/>
+
+    <node name="RSP" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+    
+    <node name="JSP" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+
+    <rosparam command="load" file="$(find bazu)/config/controller.yaml"/>
+
+    <node name="contoller_spawner" pkg="contoller_manager" type="spawner" arg="joint_1_controller
+                                                                               joint_2_controller
+                                                                               joint_3_controller">
+        
+    </node>
+    
+
+    
+
+</launch>
